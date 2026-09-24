@@ -1,0 +1,15 @@
+{
+  "players": [
+    {
+      "Player_ID": "Normal_Player",
+      "HP": 60,
+      "ATK": 500,
+      "DEF": 0,
+      "MoveSpeed": 20,
+      "Ranged": 10,
+      "ATKSpeed": 100,
+      "DashSpeed": 40,
+      "DashCool": 1
+    }
+  ]
+}
