@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
-    public GameObject[] monsterPrefabs;   // Inspector¿¡ Ç¥½ÃµÊ
+    public GameObject[] monsterPrefabs;   // Inspectorì— í‘œì‹œë¨
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnMonsters(GameObject map)
     {
         MonsterSpawnPoint[] spawnPoints = map.GetComponentsInChildren<MonsterSpawnPoint>();
-        Debug.Log("SpawnMonsters È£ÃâµÊ");
+        Debug.Log("SpawnMonsters í˜¸ì¶œë¨");
 
         foreach (var sp in spawnPoints)
         {
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
                 map.transform
             );
 
-            // ¹İµå½Ã Enemy ÅÂ±× Àû¿ë
+            // ë°˜ë“œì‹œ Enemy íƒœê·¸ ì ìš©
             spawned.tag = "Enemy";
             WaveManager.Instance.SpawnFinished();
         }

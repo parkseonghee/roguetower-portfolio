@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class DemoEndingTrigger : MonoBehaviour
 {
-    private GameObject targetPanel; // Äµ¹ö½º¿¡ ÀÖ´Â ±× ÆĞ³Î
+    private GameObject targetPanel; // ìº”ë²„ìŠ¤ì— ìˆëŠ” ê·¸ íŒ¨ë„
     private bool isPlayerInZone = false;
 
     private void Start()
     {
-        // 1. HpBarStats Äµ¹ö½º¸¦ Ã£½À´Ï´Ù.
+        // 1. HpBarStats ìº”ë²„ìŠ¤ë¥¼ ì°¾ìŠµë‹ˆë‹¤.
         GameObject canvas = GameObject.Find("HpBarStats");
 
         if (canvas != null)
         {
-            // 2. ±× Äµ¹ö½º ¾Æ·¡¿¡ ¹Ì¸® ³Ö¾îµĞ "DemoEndingPanel"À» Ã£½À´Ï´Ù.
+            // 2. ê·¸ ìº”ë²„ìŠ¤ ì•„ë˜ì— ë¯¸ë¦¬ ë„£ì–´ë‘” "DemoEndingPanel"ì„ ì°¾ìŠµë‹ˆë‹¤.
             Transform t = canvas.transform.Find("DemoEndingPanel");
             if (t != null) targetPanel = t.gameObject;
         }
@@ -20,15 +20,15 @@ public class DemoEndingTrigger : MonoBehaviour
 
     private void Update()
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ¿µ¿ª ¾È¿¡¼­ FÅ°¸¦ ´©¸£¸é
+        // í”Œë ˆì´ì–´ê°€ ì˜ì—­ ì•ˆì—ì„œ Fí‚¤ë¥¼ ëˆ„ë¥´ë©´
         if (isPlayerInZone && Input.GetKeyDown(KeyCode.F))
         {
-            // Äµ¹ö½º¿¡ ÀÖ´Â ÆĞ³ÎÀ» ÄÒ´Ù!
+            // ìº”ë²„ìŠ¤ì— ìˆëŠ” íŒ¨ë„ì„ ì¼ ë‹¤!
             if (targetPanel != null)
             {
                 targetPanel.SetActive(true);
 
-                // ½Ã°£ ¸ØÃã ¹× ¸¶¿ì½º Ä¿¼­ È°¼ºÈ­
+                // ì‹œê°„ ë©ˆì¶¤ ë° ë§ˆìš°ìŠ¤ ì»¤ì„œ í™œì„±í™”
                 Time.timeScale = 0f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;

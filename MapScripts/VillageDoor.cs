@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class VillageDoor : MonoBehaviour
 {
-    public GameObject childContent; // È® ³ªÅ¸³¯ ¿ÀºêÁ§Æ® (¿¹: ¹öÆ° ¾ÆÀÌÄÜ)
+    public GameObject childContent; // í™• ë‚˜íƒ€ë‚  ì˜¤ë¸Œì íŠ¸ (ì˜ˆ: ë²„íŠ¼ ì•„ì´ì½˜)
     public SpriteRenderer childContent2Renderer;
     bool isAtDoor = false;
-    // 1. ÀÎ½ºÆåÅÍ¿¡¼­ ÀÔ·Â¹ŞÀ» ¾À ÀÌ¸§ º¯¼ö Ãß°¡
-    [Header("ÀÌµ¿ÇÒ ¾À ÀÌ¸§")]
+    // 1. ì¸ìŠ¤í™í„°ì—ì„œ ì…ë ¥ë°›ì„ ì”¬ ì´ë¦„ ë³€ìˆ˜ ì¶”ê°€
+    [Header("ì´ë™í•  ì”¬ ì´ë¦„")]
     [SerializeField] private string targetSceneName = "GameScene";
 
 
@@ -20,7 +20,7 @@ public class VillageDoor : MonoBehaviour
         {
             SceneChanger sc = Object.FindFirstObjectByType<SceneChanger>();
 
-            // DoorÀÎ½ºÆåÅÍ¿¡¼­ ¾î´À¾ÀÀ¸·Î ÀÌµ¿ÇÒÁö Á÷Á¢ Å¸ÀÌÇÎ
+            // Doorì¸ìŠ¤í™í„°ì—ì„œ ì–´ëŠì”¬ìœ¼ë¡œ ì´ë™í• ì§€ ì§ì ‘ íƒ€ì´í•‘
             if (sc != null)
             {
                 sc.EnterDoorFade();

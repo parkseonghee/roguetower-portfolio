@@ -16,14 +16,14 @@ public class WaveManager : MonoBehaviour
     private bool isSpawnFinished = false;
     public Vector3 pos;
     public NavMeshSurface navMeshSurface;
-    public TextMeshProUGUI permanentPoint; // ¿µ±¸ Á¡¼ö Ç¥½Ã UI (optional)
-    public TextMeshProUGUI statPoint; // ½ºÅÈ ¾÷±×·¹ÀÌµå UI (optional)
-    private Chest currentChest; // º¸»óÃ¢ °ü¸®¸¦ À§ÇÑ º¯¼ö Ãß°¡
-    private Store currentStore; // »óÁ¡ °ü¸®¸¦ À§ÇÑ º¯¼ö Ãß°¡
+    public TextMeshProUGUI permanentPoint; // ì˜êµ¬ ì ìˆ˜ í‘œì‹œ UI (optional)
+    public TextMeshProUGUI statPoint; // ìŠ¤íƒ¯ ì—…ê·¸ë ˆì´ë“œ UI (optional)
+    private Chest currentChest; // ë³´ìƒì°½ ê´€ë¦¬ë¥¼ ìœ„í•œ ë³€ìˆ˜ ì¶”ê°€
+    private Store currentStore; // ìƒì  ê´€ë¦¬ë¥¼ ìœ„í•œ ë³€ìˆ˜ ì¶”ê°€
     public int Pointed = 0;
     public int stat = 0;
 
-    private bool isRewardWindowOpening = false; // º¸»óÃ¢ Áßº¹ ½ÇÇà ¹æÁö¿ë º¯¼ö Ãß°¡
+    private bool isRewardWindowOpening = false; // ë³´ìƒì°½ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€ìš© ë³€ìˆ˜ ì¶”ê°€
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        // ÀúÀåµÈ ¿µ±¸ Á¡¼ö ºÒ·¯¿À±â
+        // ì €ì¥ëœ ì˜êµ¬ ì ìˆ˜ ë¶ˆëŸ¬ì˜¤ê¸°
         Pointed = PlayerPrefs.GetInt("SavedPermanentPoints", 0);
         stat =PlayerPrefs.GetInt("SavedStatPoints", 0);
         if (permanentPoint != null)
@@ -48,15 +48,15 @@ public class WaveManager : MonoBehaviour
     {
         if (currentMap == null) return;
         if (!isSpawnFinished) return;
-        if (doorsOpened || isRewardWindowOpening) return; // ÀÌ¹Ì ¹®ÀÌ ¿­·È°Å³ª º¸»ó ´ë±â ÁßÀÌ¸é ¸®ÅÏ
+        if (doorsOpened || isRewardWindowOpening) return; // ì´ë¯¸ ë¬¸ì´ ì—´ë ¸ê±°ë‚˜ ë³´ìƒ ëŒ€ê¸° ì¤‘ì´ë©´ ë¦¬í„´
 
-        // Enemy ÅÂ±× °¡Áø ¿ÀºêÁ§Æ®°¡ ÇÏ³ªµµ ¾øÀ¸¸é
+        // Enemy íƒœê·¸ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ í•˜ë‚˜ë„ ì—†ìœ¼ë©´
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length == 0)
         {
             Pointed +=10;
-            // Áö¿¬ ÈÄ º¸»óÃ¢ ¹× ¹® ¿­±â¸¦ Ã³¸®ÇÏ´Â ÄÚ·çÆ¾ ½ÃÀÛ
-            StartCoroutine(DelayedRewardAndOpenDoors(1f)); // 1.5ÃÊ ´ë±â (¿øÇÏ´Â ÃÊ·Î ¼öÁ¤ °¡´É)
+            // ì§€ì—° í›„ ë³´ìƒì°½ ë° ë¬¸ ì—´ê¸°ë¥¼ ì²˜ë¦¬í•˜ëŠ” ì½”ë£¨í‹´ ì‹œì‘
+            StartCoroutine(DelayedRewardAndOpenDoors(1f)); // 1.5ì´ˆ ëŒ€ê¸° (ì›í•˜ëŠ” ì´ˆë¡œ ìˆ˜ì • ê°€ëŠ¥)
         }
     }
 
@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
 
         StartCoroutine(BakeNavMeshRoutine());
 
-        // ¹® ÃÊ±âÈ­
+        // ë¬¸ ì´ˆê¸°í™”
         doors = currentMap.GetComponentsInChildren<Door>();
         currentChest = currentMap.GetComponentInChildren<Chest>();
         currentStore = currentMap.GetComponentInChildren<Store>();
@@ -93,7 +93,7 @@ public class WaveManager : MonoBehaviour
 
         if (player != null)
         {
-            // 1. ÇÃ·¹ÀÌ¾îÀÇ ´ë½¬ »óÅÂ¸¦ ¸ÕÀú °­Á¦·Î ¸ØÃä´Ï´Ù.
+            // 1. í”Œë ˆì´ì–´ì˜ ëŒ€ì‰¬ ìƒíƒœë¥¼ ë¨¼ì € ê°•ì œë¡œ ë©ˆì¶¥ë‹ˆë‹¤.
             Player playerScript = player.GetComponent<Player>();
             if (playerScript != null)
             {
@@ -115,17 +115,17 @@ public class WaveManager : MonoBehaviour
     {
         if (doorsOpened) return;
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //¸ó½ºÅÍ ÅÂ±×Ã£¾Æ¼­
-        if (enemies.Length == 0)//¸ó½ºÅÍ ¹è¿­ÀÌ 0ÀÌ¸é
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //ëª¬ìŠ¤í„° íƒœê·¸ì°¾ì•„ì„œ
+        if (enemies.Length == 0)//ëª¬ìŠ¤í„° ë°°ì—´ì´ 0ì´ë©´
         {
-            OpenDoors(); // Áï½Ã ¹® ¿­¸²
+            OpenDoors(); // ì¦‰ì‹œ ë¬¸ ì—´ë¦¼
 
         }
 
         if (doorsOpened) return;
 
     }
-    /// MapClearManager Å×½ºÆÃÁß ¸Ê¿¡ Á÷Á¢ ¼³Ä¡ÇÏ´Ï ÀÚ½Ä°³Ã¼·Î Å½ÁöÇØ¼­ 0µÇ¸é »ç¶óÁö°ÔÇÏ´ÂÁß
+    /// MapClearManager í…ŒìŠ¤íŒ…ì¤‘ ë§µì— ì§ì ‘ ì„¤ì¹˜í•˜ë‹ˆ ìì‹ê°œì²´ë¡œ íƒì§€í•´ì„œ 0ë˜ë©´ ì‚¬ë¼ì§€ê²Œí•˜ëŠ”ì¤‘
 
 
 
@@ -138,7 +138,7 @@ public class WaveManager : MonoBehaviour
         foreach (Door d in doors)
             d.Open();
 
-        Debug.Log("¹® ¿­¸²!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log("ë¬¸ ì—´ë¦¼!!!!!!!!!!!!!!!!!!!!!");
     }
     public IEnumerator CheckEnemy()
     {
@@ -157,50 +157,50 @@ public class WaveManager : MonoBehaviour
     IEnumerator BakeNavMeshRoutine()
     {
 
-        // collider / tilemap ¾ÈÁ¤È­
+        // collider / tilemap ì•ˆì •í™”
         yield return new WaitForEndOfFrame();
         
         if(navMeshSurface == null)
         {
-            Debug.LogError("NavMeshSurface ¾øÀ½");
+            Debug.LogError("NavMeshSurface ì—†ìŒ");
         }
         if (navMeshSurface != null)
         {
             navMeshSurface.BuildNavMesh();
         }
 
-        //NavMesh ¿Ï¼º ÈÄ ¸ó½ºÅÍ »ı¼º
+        //NavMesh ì™„ì„± í›„ ëª¬ìŠ¤í„° ìƒì„±
         SpawnManager.Instance.SpawnMonsters(currentMap);
     }
 
     private IEnumerator DelayedRewardAndOpenDoors(float delay)
     {
-        isRewardWindowOpening = true; // Áßº¹ ½ÇÇà ¹æÁö
+        isRewardWindowOpening = true; // ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€
 
-        // ÁöÁ¤µÈ ½Ã°£¸¸Å­ ±â´Ù¸²
+        // ì§€ì •ëœ ì‹œê°„ë§Œí¼ ê¸°ë‹¤ë¦¼
         yield return new WaitForSeconds(delay);
 
 
-        //0.1f ´ç 10%
+        //0.1f ë‹¹ 10%
         if (Random.value <= 0.5f) 
         {
             if (currentChest != null)
             {
-                // À§Ä¡ ÀÌµ¿ ÄÚµå »èÁ¦: ¸Ê ÇÁ¸®ÆÕ ¾ÈÀÇ ¿ø·¡ À§Ä¡ ±×´ë·Î µÓ´Ï´Ù.
-                // 3. »óÀÚ È°¼ºÈ­!
+                // ìœ„ì¹˜ ì´ë™ ì½”ë“œ ì‚­ì œ: ë§µ í”„ë¦¬íŒ¹ ì•ˆì˜ ì›ë˜ ìœ„ì¹˜ ê·¸ëŒ€ë¡œ ë‘¡ë‹ˆë‹¤.
+                // 3. ìƒì í™œì„±í™”!
                 currentChest.OpenChest();
-                Debug.Log("50% È®·ü·Î ¸Ê ¾ÈÀÇ »óÀÚ°¡ ³ªÅ¸³µ½À´Ï´Ù!");
+                Debug.Log("50% í™•ë¥ ë¡œ ë§µ ì•ˆì˜ ìƒìê°€ ë‚˜íƒ€ë‚¬ìŠµë‹ˆë‹¤!");
             }
         }
 
         if (Random.value <= 0.5f)
         {
-            Debug.Log("[½Ã½ºÅÛ] 50% È®·ü ´çÃ·! »óÁ¡ ÄÑ±â¸¦ ½ÃµµÇÕ´Ï´Ù.");
+            Debug.Log("[ì‹œìŠ¤í…œ] 50% í™•ë¥  ë‹¹ì²¨! ìƒì  ì¼œê¸°ë¥¼ ì‹œë„í•©ë‹ˆë‹¤.");
 
             if (currentStore != null)
             {
                 currentStore.OpenStore();
-                Debug.Log("[½Ã½ºÅÛ] ¸Ê ¾ÈÀÇ »óÁ¡ÀÌ ¼º°øÀûÀ¸·Î ³ªÅ¸³µ½À´Ï´Ù!");
+                Debug.Log("[ì‹œìŠ¤í…œ] ë§µ ì•ˆì˜ ìƒì ì´ ì„±ê³µì ìœ¼ë¡œ ë‚˜íƒ€ë‚¬ìŠµë‹ˆë‹¤!");
             }
 
         }
@@ -209,7 +209,7 @@ public class WaveManager : MonoBehaviour
         UpdatePointUI();
 
 
-        // º¸»óÃ¢ ¶ç¿ì±â
+        // ë³´ìƒì°½ ë„ìš°ê¸°
         if (UIMoveing.uImaanger != null)
         {
             UIMoveing.uImaanger.Rewardtime();
@@ -217,13 +217,13 @@ public class WaveManager : MonoBehaviour
 
 
 
-        // ¹® ¿­±â
+        // ë¬¸ ì—´ê¸°
         OpenDoors();
 
         isRewardWindowOpening = false;
     }
 
-    public void SpawnFinished() // ½ºÆù¿Ï·áÇÔ¼ö
+    public void SpawnFinished() // ìŠ¤í°ì™„ë£Œí•¨ìˆ˜
     {
         isSpawnFinished = true;
     }
@@ -232,8 +232,8 @@ public class WaveManager : MonoBehaviour
     {
         if (permanentPoint != null)
         {
-            permanentPoint.text = "°æÇèÄ¡ : " + Pointed.ToString() + "/" + "100";
-            statPoint.text = "·¹º§ Áª: " + stat.ToString();
+            permanentPoint.text = "ê²½í—˜ì¹˜ : " + Pointed.ToString() + "/" + "100";
+            statPoint.text = "ë ˆë²¨ ì ¬: " + stat.ToString();
 
             PlayerPrefs.SetInt("SavedPermanentPoints", Pointed);
             PlayerPrefs.SetInt("SavedStatPoints", stat);
@@ -241,12 +241,12 @@ public class WaveManager : MonoBehaviour
 
             if (Pointed >= 100)
             {
-                stat += 1; // ½ºÅÈ Æ÷ÀÎÆ® Áõ°¡
-                Pointed -= 100; // ¿µ±¸ Á¡¼ö ÃÊ±âÈ­
-                // UI ¾÷µ¥ÀÌÆ®
-                permanentPoint.text = "°æÇèÄ¡ : " + Pointed.ToString() + "/" + "100";
-                statPoint.text = "·¹º§ Áª: " + stat.ToString();
-                // µ¥ÀÌÅÍ ÀúÀå
+                stat += 1; // ìŠ¤íƒ¯ í¬ì¸íŠ¸ ì¦ê°€
+                Pointed -= 100; // ì˜êµ¬ ì ìˆ˜ ì´ˆê¸°í™”
+                // UI ì—…ë°ì´íŠ¸
+                permanentPoint.text = "ê²½í—˜ì¹˜ : " + Pointed.ToString() + "/" + "100";
+                statPoint.text = "ë ˆë²¨ ì ¬: " + stat.ToString();
+                // ë°ì´í„° ì €ì¥
                 PlayerPrefs.SetInt("SavedPermanentPoints", Pointed);
                 PlayerPrefs.SetInt("SavedStatPoints", stat);
                 PlayerPrefs.Save();

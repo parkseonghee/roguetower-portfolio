@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MapClearManager : MonoBehaviour
 {
-    public Transform monsterHolder; // ¸ó½ºÅÍµéÀÌ ´ã±ä ºÎ¸ğ ¿ÀºêÁ§Æ®
+    public Transform monsterHolder; // ëª¬ìŠ¤í„°ë“¤ì´ ë‹´ê¸´ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸
     private bool doorsOpened = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,17 +19,17 @@ public class MapClearManager : MonoBehaviour
 
     public void CheckAndOpenDoors()
     {
-        Debug.Log("return¹®Á¦?");
+        Debug.Log("returnë¬¸ì œ?");
         if (doorsOpened) return;
 
-        // ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ °³¼ö¸¦ È®ÀÎ
+        // ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ ê°œìˆ˜ë¥¼ í™•ì¸
         if (monsterHolder.childCount == 0)
         {
             WaveManager.Instance.OpenDoors();
             doorsOpened = true;
-            Debug.Log("¸ø ´ÙÀâÀ½ ¹®¿­¸²");
+            Debug.Log("ëª» ë‹¤ì¡ìŒ ë¬¸ì—´ë¦¼");
         }
-        Debug.Log("¿¬°áÀºµÆÀ½");
+        Debug.Log("ì—°ê²°ì€ëìŒ");
         
     }
 }

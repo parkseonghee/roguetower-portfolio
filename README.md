@@ -15,11 +15,12 @@
 
 ### ▶️ 게임 플레이 영상
 
-[![RogueTower 게임 플레이 영상](https://img.youtube.com/vi/-2gCSaoDLzc/hqdefault.jpg)](https://youtu.be/-2gCSaoDLzc)
+[![RogueTower 게임 플레이 영상](https://img.youtube.com/vi/-2gCSaoDLzc/hqdefault.jpg)](https://parkseonghee.github.io/roguetower-portfolio/)
 
+[![포트폴리오 페이지](https://img.shields.io/badge/🗼_포트폴리오_페이지_열기-FFB23F?style=for-the-badge&logoColor=white)](https://parkseonghee.github.io/roguetower-portfolio/)
 [![Watch on YouTube](https://img.shields.io/badge/YouTube에서_보기-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/-2gCSaoDLzc)
 
-<sub>🎬 위 썸네일을 클릭하면 플레이 영상으로 이동합니다 — https://youtu.be/-2gCSaoDLzc</sub>
+<sub>🎬 **[포트폴리오 페이지](https://parkseonghee.github.io/roguetower-portfolio/)** 에 들어가면 플레이 영상이 **자동 재생**됩니다 (음소거 · 반복 / 페이지 우측 상단에서 소리 켜기)</sub>
 
 </div>
 
@@ -53,17 +54,17 @@
 | 🧩 **엔진** | Unity (C#) |
 | 📦 **주요 패키지** | TextMesh Pro · Unity UI (EventSystem) · NavMeshPlus(2D NavMesh) · Cinemachine |
 | 🗺️ **게임 구조** | 마을(Village) → 던전 1~9층(랜덤 맵) → 10층 보스(미노타우로스) |
-| 🔁 **핵심 루프** | 맵 입장 → 몬스터 전멸 → 보상(상자 / 상점 / 영구 포인트) → 다음 층 이동 |
+| 🔁 **핵심 루프** | 맵 입장 → 몬스터 전멸 → 보상(상자 / 상점 / 경험치) → 다음 층 이동 |
 
 ```
 🏘️ 마을 ──▶ 🚪 1층 ──▶ 🚪 2층 ──▶ ⋯ ──▶ 🚪 9층 ──▶ 👹 10층 보스
               │
-              └─ ⚔️ 전투 ──▶ 💀 전멸 판정 ──▶ 🎁 상자 50% / 🏪 상점 50% / ⭐ 영구 포인트 +10 ──▶ 🚪 문 개방
+              └─ ⚔️ 전투 ──▶ 💀 전멸 판정 ──▶ 🎁 상자 50% / 🏪 상점 50% / ⭐ 경험치 +10 ──▶ 🚪 문 개방
 ```
 
 플레이어는 층마다 무작위로 생성되는 방에서 몬스터를 전멸시키고, 그 보상으로 얻은 아이템과
 골드로 캐릭터를 강화하며 탑을 올라갑니다. 층을 넘어가도 인벤토리와 스탯은 유지되고,
-런이 끝나도 **영구 성장 포인트**는 `PlayerPrefs`에 저장되어 다음 런에 반영됩니다.
+런이 끝나도 **경험치와 레벨 젬**은 `PlayerPrefs`에 저장되어 다음 런에 반영됩니다.
 
 <br/>
 
@@ -90,7 +91,7 @@
 - 👾 스폰 포인트 기반 몬스터 생성
 - 🚪 문(Door) 개방 조건 판정
 - 🎞️ 페이드 기반 씬 전환
-- ⭐ 영구 성장 포인트 저장/로드
+- ⭐ 경험치 · 레벨 젬 영구 저장/로드
 
 </td></tr>
 </table>
@@ -129,6 +130,11 @@ roguetower-portfolio/
 ├── 📊 Data/                         # 밸런스 데이터 테이블
 │   ├── Charcter_data.json           # 플레이어 기본 스탯
 │   └── MonsterStat.json             # 몬스터/보스 스탯
+│
+├── 🌐 docs/                         # GitHub Pages 포트폴리오 페이지
+│   ├── index.html                   # 플레이 영상 자동 재생 + 시스템 소개
+│   ├── roguetower-gameplay.mp4      # 게임 플레이 영상
+│   └── poster.jpg                   # 영상 로딩 전 표시용 포스터
 │
 ├── 🏪 Store.cs                      # 상점 (골드 구매)
 ├── 🎁 Chest.cs                      # 보상 상자 (3택 1)
@@ -276,8 +282,8 @@ private void Start()     => LoadDataFromCloud(); // 🔽 새 씬 UI에 복원 �
 | 2️⃣ | `BakeNavMeshRoutine()` | 런타임 NavMesh 베이크. 맵을 생성한 프레임에 바로 베이크하면 **Tilemap 콜라이더가 아직 갱신되지 않아 길이 잘못 뚫리는 문제**가 있어, `WaitForEndOfFrame()`으로 한 프레임 양보한 뒤 `BuildNavMesh()`를 호출하고 **베이크가 끝난 다음에야 몬스터를 스폰**하도록 순서를 고정 |
 | 3️⃣ | `SpawnManager.SpawnMonsters()` | 맵 프리팹의 `MonsterSpawnPoint`를 모두 찾아 몬스터를 랜덤 배치, `Enemy` 태그 부여 |
 | 4️⃣ | `Update()` | `Enemy` 태그 오브젝트가 **0개가 되면 전멸로 판정** |
-| 5️⃣ | `DelayedRewardAndOpenDoors()` | 1초 연출 대기 후 → 🎁 상자 50% / 🏪 상점 50% **독립 판정**(둘 다 / 하나만 / 없음 모두 가능) → ⭐ 영구 포인트 +10 → 🚪 문 개방. `isRewardWindowOpening` 플래그로 **보상창 중복 실행 차단** |
-| ⭐ | `UpdatePointUI()` | 영구 포인트 100 도달 시 **스탯 포인트 1로 환산**하고 잔여 포인트를 이월. `PlayerPrefs`에 즉시 저장해 게임을 종료해도 성장이 유지됨 |
+| 5️⃣ | `DelayedRewardAndOpenDoors()` | 1초 연출 대기 후 → 🎁 상자 50% / 🏪 상점 50% **독립 판정**(둘 다 / 하나만 / 없음 모두 가능) → ⭐ 경험치 +10 → 🚪 문 개방. `isRewardWindowOpening` 플래그로 **보상창 중복 실행 차단** |
+| ⭐ | `UpdatePointUI()` | 경험치가 100에 도달하면 **레벨 젬 1개로 환산**하고 잔여 경험치를 이월. `PlayerPrefs`(`SavedPermanentPoints` / `SavedStatPoints`)에 즉시 저장해 게임을 종료해도 성장이 유지됨 |
 
 <br/>
 

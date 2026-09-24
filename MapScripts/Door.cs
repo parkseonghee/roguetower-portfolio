@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
         if (doorCollider != null)
             doorCollider.enabled = true;
         if (spriteRenderer != null)
-            spriteRenderer.enabled = true; //∫∏¿Ã∞‘
+            spriteRenderer.enabled = true; //Î≥¥Ïù¥Í≤å
     }
     public void CloseHidden()
     {
@@ -30,6 +30,6 @@ public class Door : MonoBehaviour
             doorCollider.enabled = false;
 
         if (spriteRenderer != null)
-            spriteRenderer.enabled = false; //æ» ∫∏¿Ã∞‘
+            spriteRenderer.enabled = false; //Ïïà Î≥¥Ïù¥Í≤å
     }
 }

@@ -5,17 +5,17 @@ public class DoorTrigger : MonoBehaviour
     private Door door;
     public GameObject childContent;
     private bool entered = false;
-    private bool isPlayerInZone = false; // ÇÃ·¹ÀÌ¾î°¡ ¹® ¿µ¿ª ¾È¿¡ ÀÖ´ÂÁö È®ÀÎÇÏ´Â º¯¼ö
+    private bool isPlayerInZone = false; // í”Œë ˆì´ì–´ê°€ ë¬¸ ì˜ì—­ ì•ˆì— ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ë³€ìˆ˜
 
     private void Awake() => door = GetComponent<Door>();
 
-    // ¸Å ÇÁ·¹ÀÓ¸¶´Ù ÇÃ·¹ÀÌ¾îÀÇ Å° ÀÔ·ÂÀ» È®ÀÎÇÕ´Ï´Ù.
+    // ë§¤ í”„ë ˆì„ë§ˆë‹¤ í”Œë ˆì´ì–´ì˜ í‚¤ ì…ë ¥ì„ í™•ì¸í•©ë‹ˆë‹¤.
     private void Update()
     {
-        // 1. ÇÃ·¹ÀÌ¾î°¡ ¿µ¿ª ¾È¿¡ ÀÖ°í
-        // 2. ¹®ÀÌ ¿­·ÁÀÖÀ¸¸ç
-        // 3. ¾ÆÁ÷ µé¾î°¡Áö ¾ÊÀº »óÅÂ¿¡¼­
-        // 4. FÅ°¸¦ ´­·¶´Ù¸é
+        // 1. í”Œë ˆì´ì–´ê°€ ì˜ì—­ ì•ˆì— ìˆê³ 
+        // 2. ë¬¸ì´ ì—´ë ¤ìˆìœ¼ë©°
+        // 3. ì•„ì§ ë“¤ì–´ê°€ì§€ ì•Šì€ ìƒíƒœì—ì„œ
+        // 4. Fí‚¤ë¥¼ ëˆŒë €ë‹¤ë©´
 
         if (Time.timeScale == 0f || Player.isAnyUIOpen) return;
 
@@ -25,7 +25,7 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹® ¿µ¿ª¿¡ µé¾î¿ÔÀ» ¶§
+    // í”Œë ˆì´ì–´ê°€ ë¬¸ ì˜ì—­ì— ë“¤ì–´ì™”ì„ ë•Œ
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -35,7 +35,7 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹® ¿µ¿ª¿¡¼­ ³ª°¬À» ¶§
+    // í”Œë ˆì´ì–´ê°€ ë¬¸ ì˜ì—­ì—ì„œ ë‚˜ê°”ì„ ë•Œ
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -45,7 +45,7 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
-    // ½ÇÁ¦ ¹®À¸·Î µé¾î°¡´Â Ã³¸® ·ÎÁ÷ (±âÁ¸ ÄÚµå ºĞ¸®)
+    // ì‹¤ì œ ë¬¸ìœ¼ë¡œ ë“¤ì–´ê°€ëŠ” ì²˜ë¦¬ ë¡œì§ (ê¸°ì¡´ ì½”ë“œ ë¶„ë¦¬)
     private void InteractWithDoor()
     {
         entered = true;
@@ -53,16 +53,16 @@ public class DoorTrigger : MonoBehaviour
         SceneChanger sc = Object.FindFirstObjectByType<SceneChanger>();
         if (sc != null)
         {
-            // »õ·Î ¸¸µç ÇÔ¼ö È£Ãâ!
+            // ìƒˆë¡œ ë§Œë“  í•¨ìˆ˜ í˜¸ì¶œ!
             sc.EnterDoorFade();
         }
         else
         {
-            // È¤½Ã SceneChanger°¡ ¾øÀ¸¸é ±×³É ÀÌµ¿ÀÌ¶óµµ ½ÃÅ´
+            // í˜¹ì‹œ SceneChangerê°€ ì—†ìœ¼ë©´ ê·¸ëƒ¥ ì´ë™ì´ë¼ë„ ì‹œí‚´
             WaveManager.Instance.PlayerEnterDoor();
         }
 
-        // ¸ÊÀÌ ¹Ù²î°í ³ª¼­ ´Ù½Ã Æ®¸®°Å¸¦ ¾µ ¼ö ÀÖ°Ô ¾à°£ÀÇ ÄğÅ¸ÀÓ ÈÄ ¸®¼Â
+        // ë§µì´ ë°”ë€Œê³  ë‚˜ì„œ ë‹¤ì‹œ íŠ¸ë¦¬ê±°ë¥¼ ì“¸ ìˆ˜ ìˆê²Œ ì•½ê°„ì˜ ì¿¨íƒ€ì„ í›„ ë¦¬ì…‹
         Invoke(nameof(ResetTrigger), 2f);
     }
 

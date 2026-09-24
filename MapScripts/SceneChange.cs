@@ -5,64 +5,64 @@ using System.Collections;
 
 public class SceneChanger : MonoBehaviour
 {
-    public Image fadeImage; // 1´Ü°è¿¡¼­ ¸¸µç ÀÌ¹ÌÁö¸¦ ¿©±â¿¡ ¿¬°á
-    public float fadeSpeed = 2.0f; // ÆäÀÌµå ¼Óµµ
-    public static bool IsGameStarted = false; // ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ Á¢±Ù °¡´ÉÇÏ°Ô static
+    public Image fadeImage; // 1ë‹¨ê³„ì—ì„œ ë§Œë“  ì´ë¯¸ì§€ë¥¼ ì—¬ê¸°ì— ì—°ê²°
+    public float fadeSpeed = 2.0f; // í˜ì´ë“œ ì†ë„
+    public static bool IsGameStarted = false; // ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥í•˜ê²Œ static
 
-    // ¾ÀÀÌ ½ÃÀÛµÇÀÚ¸¶ÀÚ ½ÇÇàµÇ´Â ºÎºĞ
+    // ì”¬ì´ ì‹œì‘ë˜ìë§ˆì ì‹¤í–‰ë˜ëŠ” ë¶€ë¶„
     private void Start()
     {
         Time.timeScale = 0f;
-        // ¾À¿¡ µé¾î¿ÔÀ¸´Ï Ä¿Æ°À» °È¾î¾ß ÇÔ (°ËÁ¤ -> Åõ¸í)
+        // ì”¬ì— ë“¤ì–´ì™”ìœ¼ë‹ˆ ì»¤íŠ¼ì„ ê±·ì–´ì•¼ í•¨ (ê²€ì • -> íˆ¬ëª…)
         StartCoroutine(FadeIn());
     }
 
-    // [¹öÆ°¿¡ ¿¬°áÇÒ ÇÔ¼ö]
+    // [ë²„íŠ¼ì— ì—°ê²°í•  í•¨ìˆ˜]
     public void GoToNextScene(string sceneName)
     {
-        // ¹öÆ°À» ´©¸£¸é Ä¿Æ°À» Ä¡°í ¾À ÀÌµ¿ (Åõ¸í -> °ËÁ¤)
+        // ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì»¤íŠ¼ì„ ì¹˜ê³  ì”¬ ì´ë™ (íˆ¬ëª… -> ê²€ì •)
         StartCoroutine(FadeOut(sceneName));
     }
 
     public void EnterDoorFade()
     {
-        StopAllCoroutines(); // È¤½Ã ½ÇÇà ÁßÀÎ ÆäÀÌµå°¡ ÀÖ´Ù¸é Áß´Ü
+        StopAllCoroutines(); // í˜¹ì‹œ ì‹¤í–‰ ì¤‘ì¸ í˜ì´ë“œê°€ ìˆë‹¤ë©´ ì¤‘ë‹¨
         StartCoroutine(EnterDoorRoutine());
     }
-    // Áï½Ã È­¸éÀ» °Ë°Ô ¸¸µé°í ½Ã°£À» ¸ØÃß´Â ÇÔ¼ö
+    // ì¦‰ì‹œ í™”ë©´ì„ ê²€ê²Œ ë§Œë“¤ê³  ì‹œê°„ì„ ë©ˆì¶”ëŠ” í•¨ìˆ˜
     public void CutToBlack()
     {
         Time.timeScale = 0f;
         fadeImage.gameObject.SetActive(true);
-        fadeImage.color = new Color(0, 0, 0, 1f); // Áï½Ã 100% °ËÁ¤
+        fadeImage.color = new Color(0, 0, 0, 1f); // ì¦‰ì‹œ 100% ê²€ì •
     }
     public IEnumerator FadeIn()
     {
-        Debug.Log("ÆäÀÌµå ÀÎ ½ÃÀÛ!"); // ÄÜ¼Ö È®ÀÎ¿ë
+        Debug.Log("í˜ì´ë“œ ì¸ ì‹œì‘!"); // ì½˜ì†” í™•ì¸ìš©
         fadeImage.gameObject.SetActive(true);
 
         float alpha = 1.0f;
         fadeImage.color = new Color(0, 0, 0, 1f);
 
-        // ·çÇÁ°¡ µµ´ÂÁö È®ÀÎÇÏ±â À§ÇØ ¾ÆÁÖ È®½ÇÇÑ ±¸Á¶·Î º¯°æ
+        // ë£¨í”„ê°€ ë„ëŠ”ì§€ í™•ì¸í•˜ê¸° ìœ„í•´ ì•„ì£¼ í™•ì‹¤í•œ êµ¬ì¡°ë¡œ ë³€ê²½
         while (alpha > 0)
         {
-            // 1. ¾ËÆÄ°ª °¨¼Ò (Time.unscaledDeltaTimeÀÌ 0ÀÎÁö È®ÀÎ ÇÊ¿ä)
+            // 1. ì•ŒíŒŒê°’ ê°ì†Œ (Time.unscaledDeltaTimeì´ 0ì¸ì§€ í™•ì¸ í•„ìš”)
             float deltaTime = Time.unscaledDeltaTime;
-            if (deltaTime == 0) deltaTime = 0.01f; // È¤½Ã ¸ğ¸£´Ï ÃÖ¼Ò°ª ºÎ¿©
+            if (deltaTime == 0) deltaTime = 0.01f; // í˜¹ì‹œ ëª¨ë¥´ë‹ˆ ìµœì†Œê°’ ë¶€ì—¬
 
             alpha -= deltaTime * fadeSpeed;
 
-            // 2. ÄÃ·¯ Àû¿ë
+            // 2. ì»¬ëŸ¬ ì ìš©
             fadeImage.color = new Color(0, 0, 0, Mathf.Clamp01(alpha));
 
-            // Debug.Log($"ÇöÀç ¾ËÆÄ°ª: {alpha}"); // ³Ê¹« ¸¹ÀÌ ÂïÈ÷¸é ÁÖ¼® Ã³¸®ÇØ
+            // Debug.Log($"í˜„ì¬ ì•ŒíŒŒê°’: {alpha}"); // ë„ˆë¬´ ë§ì´ ì°íˆë©´ ì£¼ì„ ì²˜ë¦¬í•´
 
-            // 3. ½Ã°£ Á¤Áö »óÅÂ¿¡¼­µµ ¹«Á¶°Ç ´ÙÀ½ ÇÁ·¹ÀÓÀ¸·Î ³Ñ¾î°¡°Ô ÇÔ
+            // 3. ì‹œê°„ ì •ì§€ ìƒíƒœì—ì„œë„ ë¬´ì¡°ê±´ ë‹¤ìŒ í”„ë ˆì„ìœ¼ë¡œ ë„˜ì–´ê°€ê²Œ í•¨
             yield return new WaitForSecondsRealtime(0.02f);
         }
 
-        Debug.Log("ÆäÀÌµå ÀÎ ¿Ï·á! ½Ã°£ Àç»ıÇÕ´Ï´Ù."); // ¿©±â±îÁö ¿Í¾ß ¼º°ø
+        Debug.Log("í˜ì´ë“œ ì¸ ì™„ë£Œ! ì‹œê°„ ì¬ìƒí•©ë‹ˆë‹¤."); // ì—¬ê¸°ê¹Œì§€ ì™€ì•¼ ì„±ê³µ
 
         fadeImage.gameObject.SetActive(false);
         Time.timeScale = 1f;
@@ -75,13 +75,13 @@ public class SceneChanger : MonoBehaviour
 
     public void OnVillageButton()
     {
-        // ¸¶À» ¾ÀÀÇ ½ÇÁ¦ ÀÌ¸§À» " " ¾È¿¡ Á¤È®È÷ ½áÁà!
+        // ë§ˆì„ ì”¬ì˜ ì‹¤ì œ ì´ë¦„ì„ " " ì•ˆì— ì •í™•íˆ ì¨ì¤˜!
         StartCoroutine(FadeOut("VillageScene"));
     }
 
     public void OnTitleButton()
     {
-        // ½ºÅ¸Æ® ¾ÀÀÇ ½ÇÁ¦ ÀÌ¸§À» " " ¾È¿¡ Á¤È®È÷ ½áÁà!
+        // ìŠ¤íƒ€íŠ¸ ì”¬ì˜ ì‹¤ì œ ì´ë¦„ì„ " " ì•ˆì— ì •í™•íˆ ì¨ì¤˜!
         StartCoroutine(FadeOut("StartScene"));
     }
     public void OnTutorialButton()
@@ -92,7 +92,7 @@ public class SceneChanger : MonoBehaviour
     IEnumerator FadeOut(string sceneName)
     {
         fadeImage.gameObject.SetActive(true);
-        // ½ÃÀÛÇÒ ¶§ È®½ÇÇÏ°Ô Åõ¸íÇÑ °ËÁ¤»öÀ¸·Î ¼³Á¤
+        // ì‹œì‘í•  ë•Œ í™•ì‹¤í•˜ê²Œ íˆ¬ëª…í•œ ê²€ì •ìƒ‰ìœ¼ë¡œ ì„¤ì •
         fadeImage.color = new Color(0, 0, 0, 0);
         if (fadeImage == null)
         {
@@ -117,41 +117,41 @@ public class SceneChanger : MonoBehaviour
 
     private IEnumerator EnterDoorRoutine()
     {
-        // 1. Áï½Ã ¾ÏÀü ¹× ½Ã°£ Á¤Áö
+        // 1. ì¦‰ì‹œ ì•”ì „ ë° ì‹œê°„ ì •ì§€
         Time.timeScale = 0f;
         fadeImage.gameObject.SetActive(true);
         fadeImage.color = new Color(0, 0, 0, 1f);
-        Debug.Log("1. È­¸é ¾ÏÀü ¹× ½Ã°£ Á¤Áö ¿Ï·á");
+        Debug.Log("1. í™”ë©´ ì•”ì „ ë° ì‹œê°„ ì •ì§€ ì™„ë£Œ");
 
-        // 2. ¹°¸®Àû ÀÌµ¿ÀÌ Ã³¸®µÉ ¾ÆÁÖ ÂªÀº ½Ç½Ã°£ ´ë±â
+        // 2. ë¬¼ë¦¬ì  ì´ë™ì´ ì²˜ë¦¬ë  ì•„ì£¼ ì§§ì€ ì‹¤ì‹œê°„ ëŒ€ê¸°
         yield return new WaitForSecondsRealtime(0.1f);
 
-        // 3. ½ÇÁ¦ ÀÌµ¿ ·ÎÁ÷ ½ÇÇà (±ô±ôÇÑ »óÅÂ)
+        // 3. ì‹¤ì œ ì´ë™ ë¡œì§ ì‹¤í–‰ (ê¹œê¹œí•œ ìƒíƒœ)
         if (WaveManager.Instance != null)
         {
             WaveManager.Instance.PlayerEnterDoor();
-            Debug.Log("2. PlayerEnterDoor ÀÌµ¿ ·ÎÁ÷ ½ÇÇàµÊ");
+            Debug.Log("2. PlayerEnterDoor ì´ë™ ë¡œì§ ì‹¤í–‰ë¨");
         }
 
-        // 4. ÀÌµ¿ ÈÄ ¸Ê ¼¼ÆÃÀ» À§ÇÑ ÂªÀº ´ë±â
+        // 4. ì´ë™ í›„ ë§µ ì„¸íŒ…ì„ ìœ„í•œ ì§§ì€ ëŒ€ê¸°
         yield return new WaitForSecondsRealtime(0.1f);
 
-        // 5. ´Ù½Ã ½º¸£¸¤ ¹à¾ÆÁö±â
+        // 5. ë‹¤ì‹œ ìŠ¤ë¥´ë¥µ ë°ì•„ì§€ê¸°
         float alpha = 1.0f;
         while (alpha > 0)
         {
-            // Time.timeScaleÀÌ 0ÀÌ¾îµµ µ¹¾Æ°¡µµ·Ï unscaledDeltaTime »ç¿ë
+            // Time.timeScaleì´ 0ì´ì–´ë„ ëŒì•„ê°€ë„ë¡ unscaledDeltaTime ì‚¬ìš©
             alpha -= Time.unscaledDeltaTime * fadeSpeed;
             fadeImage.color = new Color(0, 0, 0, Mathf.Clamp01(alpha));
 
-            // ½Ã°£ Á¤Áö »óÅÂ¿¡¼­µµ ·çÇÁ¸¦ µ¹¸®±â À§ÇÑ ÇÙ½É ÄÚµå
+            // ì‹œê°„ ì •ì§€ ìƒíƒœì—ì„œë„ ë£¨í”„ë¥¼ ëŒë¦¬ê¸° ìœ„í•œ í•µì‹¬ ì½”ë“œ
             yield return new WaitForSecondsRealtime(0.01f);
         }
 
-        // 6. ¸¶¹«¸® ¹× ½Ã°£ Àç»ı
+        // 6. ë§ˆë¬´ë¦¬ ë° ì‹œê°„ ì¬ìƒ
         fadeImage.gameObject.SetActive(false);
-        Time.timeScale = 1f; // ÆäÀÌµå ÀÎÀÌ ¿Ï·áµÈ ½ÃÁ¡¿¡¼­ °ÔÀÓ Àç°³
+        Time.timeScale = 1f; // í˜ì´ë“œ ì¸ì´ ì™„ë£Œëœ ì‹œì ì—ì„œ ê²Œì„ ì¬ê°œ
 
-        Debug.Log("3. ÆäÀÌµå ÀÎ ¿Ï·á ¹× °ÔÀÓ Àç°³!");
+        Debug.Log("3. í˜ì´ë“œ ì¸ ì™„ë£Œ ë° ê²Œì„ ì¬ê°œ!");
     }
 }

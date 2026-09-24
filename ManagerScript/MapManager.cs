@@ -6,17 +6,17 @@ public class MapManager : MonoBehaviour
     public static MapManager Instance;
 
     [Header("Map Settings")]
-    public GameObject[] mapPrefabs;      // ÀÏ¹İ¹æ
-    public GameObject bossMapPrefab;     // º¸½º¹æ
-    public TextMeshProUGUI floorText;    // Ãş¼ö Ç¥½Ã UI (optional)
+    public GameObject[] mapPrefabs;      // ì¼ë°˜ë°©
+    public GameObject bossMapPrefab;     // ë³´ìŠ¤ë°©
+    public TextMeshProUGUI floorText;    // ì¸µìˆ˜ í‘œì‹œ UI (optional)
 
-    public int currentFloor = 0;         // ÇöÀç Ãş¼ö °ü¸® 
-    public int maxFloorBeforeBoss = 9;   // º¸½º Àü±îÁöÀÇ ÀÏ¹İ Ãş¼ö
+    public int currentFloor = 0;         // í˜„ì¬ ì¸µìˆ˜ ê´€ë¦¬ 
+    public int maxFloorBeforeBoss = 9;   // ë³´ìŠ¤ ì „ê¹Œì§€ì˜ ì¼ë°˜ ì¸µìˆ˜
 
     [Header("BGM Settings")]
-    public AudioSource bgmSource;        // ¹è°æÀ½¾ÇÀ» Àç»ıÇÒ ¿Àµğ¿À ¼Ò½º
-    public AudioClip normalBGM;          // 1~9Ãş ±âº» ¹è°æÀ½¾Ç
-    public AudioClip bossBGM;            // 10Ãş º¸½º¹æ Àü¿ë ¹è°æÀ½¾Ç
+    public AudioSource bgmSource;        // ë°°ê²½ìŒì•…ì„ ì¬ìƒí•  ì˜¤ë””ì˜¤ ì†ŒìŠ¤
+    public AudioClip normalBGM;          // 1~9ì¸µ ê¸°ë³¸ ë°°ê²½ìŒì•…
+    public AudioClip bossBGM;            // 10ì¸µ ë³´ìŠ¤ë°© ì „ìš© ë°°ê²½ìŒì•…
 
     private void Awake()
     {
@@ -26,71 +26,71 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        GoToNextMap(); // °ÔÀÓ ½ÃÀÛ ½Ã ·£´ı ¸Ê ½ºÆù
+        GoToNextMap(); // ê²Œì„ ì‹œì‘ ì‹œ ëœë¤ ë§µ ìŠ¤í°
     }
 
     public void GoToNextMap()
     {
-        currentFloor++; // Ãş¼ö Áõ°¡
+        currentFloor++; // ì¸µìˆ˜ ì¦ê°€
 
-        Debug.Log($"ÇöÀç {currentFloor}Ãş ÁøÀÔ");
+        Debug.Log($"í˜„ì¬ {currentFloor}ì¸µ ì§„ì…");
 
         if (floorText != null)
-            floorText.text = $"{currentFloor} Ãş"; // UI ¾÷µ¥ÀÌÆ®
+            floorText.text = $"{currentFloor} ì¸µ"; // UI ì—…ë°ì´íŠ¸
 
         GameObject mapToSpawn = null;
 
-        // 1. Ãş¼ö¿¡ µû¸¥ ¸Ê °áÁ¤ ¹× BGM ¼¼ÆÃ
+        // 1. ì¸µìˆ˜ì— ë”°ë¥¸ ë§µ ê²°ì • ë° BGM ì„¸íŒ…
         if (currentFloor == 10)
         {
-            // 10ÃşÀÌ¸é º¸½º¹æ È®Á¤
+            // 10ì¸µì´ë©´ ë³´ìŠ¤ë°© í™•ì •
             if (bossMapPrefab != null)
             {
                 mapToSpawn = bossMapPrefab;
-                Debug.Log("º¸½º¹æÀ» »ı¼ºÇÕ´Ï´Ù!");
+                Debug.Log("ë³´ìŠ¤ë°©ì„ ìƒì„±í•©ë‹ˆë‹¤!");
 
-                // º¸½ºÀü BGMÀ¸·Î º¯°æ!
+                // ë³´ìŠ¤ì „ BGMìœ¼ë¡œ ë³€ê²½!
                 ChangeBGM(bossBGM);
             }
             else
             {
-                Debug.LogError("Boss Map PrefabÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+                Debug.LogError("Boss Map Prefabì´ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
                 return;
             }
         }
         else if (currentFloor > 10)
         {
-            // 10Ãş ÀÌÈÄ ·ÎÁ÷
-            Debug.Log("ÃàÇÏÇÕ´Ï´Ù! ¸ğµç ÃşÀ» Á¤º¹Çß½À´Ï´Ù.");
+            // 10ì¸µ ì´í›„ ë¡œì§
+            Debug.Log("ì¶•í•˜í•©ë‹ˆë‹¤! ëª¨ë“  ì¸µì„ ì •ë³µí–ˆìŠµë‹ˆë‹¤.");
             return;
         }
         else
         {
-            // 1~9ÃşÀº ·£´ı ¸Ê
+            // 1~9ì¸µì€ ëœë¤ ë§µ
             if (mapPrefabs == null || mapPrefabs.Length == 0) return;
             int idx = Random.Range(0, mapPrefabs.Length);
             mapToSpawn = mapPrefabs[idx];
 
-            // 1~9Ãş ±âº» ºê±İ Àç»ı (ChangeBGMÀÌ ¾Ë¾Æ¼­ ¾È ²÷±â°Ô ÇØÁÜ)
+            // 1~9ì¸µ ê¸°ë³¸ ë¸Œê¸ˆ ì¬ìƒ (ChangeBGMì´ ì•Œì•„ì„œ ì•ˆ ëŠê¸°ê²Œ í•´ì¤Œ)
             ChangeBGM(normalBGM);
         }
 
-        // 2. WaveManager¸¦ ÅëÇØ ¸Ê »ı¼º
+        // 2. WaveManagerë¥¼ í†µí•´ ë§µ ìƒì„±
         WaveManager.Instance.SpawnMap(mapToSpawn, Vector3.zero);
     }
 
-    // BGMÀ» ²÷±âÁö ¾Ê°Ô ±³Ã¼ÇØ ÁÖ´Â ÇÙ½É ÇÔ¼ö
+    // BGMì„ ëŠê¸°ì§€ ì•Šê²Œ êµì²´í•´ ì£¼ëŠ” í•µì‹¬ í•¨ìˆ˜
     private void ChangeBGM(AudioClip newClip)
     {
         if (bgmSource == null || newClip == null) return;
 
-        // ÇöÀç Àç»ı ÁßÀÎ À½¾Ç°ú ´ÙÀ½¿¡ Æ² À½¾ÇÀÌ °°´Ù¸é ¹«½Ã (1~9Ãş ÀÌµ¿ ½Ã °è¼Ó ÀÌ¾îÁü)
+        // í˜„ì¬ ì¬ìƒ ì¤‘ì¸ ìŒì•…ê³¼ ë‹¤ìŒì— í‹€ ìŒì•…ì´ ê°™ë‹¤ë©´ ë¬´ì‹œ (1~9ì¸µ ì´ë™ ì‹œ ê³„ì† ì´ì–´ì§)
         if (bgmSource.clip == newClip && bgmSource.isPlaying)
         {
             return;
         }
 
-        // À½¾ÇÀÌ ´Ù¸£´Ù¸é »õ·Î¿î À½¾ÇÀ¸·Î ±³Ã¼ ÈÄ Ã³À½ºÎÅÍ Àç»ı (10Ãş ÁøÀÔ ½Ã ÀÛµ¿)
+        // ìŒì•…ì´ ë‹¤ë¥´ë‹¤ë©´ ìƒˆë¡œìš´ ìŒì•…ìœ¼ë¡œ êµì²´ í›„ ì²˜ìŒë¶€í„° ì¬ìƒ (10ì¸µ ì§„ì… ì‹œ ì‘ë™)
         bgmSource.clip = newClip;
         bgmSource.Play();
     }
