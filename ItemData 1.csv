@@ -1,0 +1,31 @@
+﻿ItemID,MainType,SubType,ItemName,Tier,Description,ATK,ATKSPD,HP_Flat,HP_Pct,DEF,MovSPD,EFF,Ability
+1001,Weapon,Greatsword,대검,4,wpn_greatsword_1_DESC,5,-0.15,10,0,0,-1,GiantWeapon,아이템의 크기가 소폭 상승 합니다
+1002,Weapon,sword,장검,1,wpn_sword_1_DESC,3,0,15,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+1003,Weapon,dagger,단검,1,wpn_dagger_1_DESC,1,0.35,0,0,0,2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+1004,Weapon,rapier,레이피어,1,wpn_rapier_1_DESC,2,0.2,0,0,0,2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+1005,Weapon,hammer,대망치,1,wpn_bghammer_1_DESC,8,-0.3,5,0,0,-2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+1006,Weapon,hammer,소망치,1,wpn_smhammer_1_DESC,4,-0.1,3,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2001,Armor,rags,누더기 옷,1,arm_rags_1_DESC,0,0,3,0,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2002,Armor,letherarmor,가죽 갑옷,1,arm_letherarmor_1_DESC,0,0,6,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2003,Armor,chainmail,사슬 갑옷,2,arm_chainmail_2_DESC,0,-0.05,12,-0.05,0,-1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2004,Armor,platearmor,판금 갑옷,2,arm_platearmor_2_DESC,0,-0.15,20,-0.15,0,-2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2005,Armor,Brigandine,브리건딘,2,arm_Brigandine_2_DESC,0,0.1,10,0.1,0,-1.5,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2006,Armor,gi,도복,3,arm_gi_3_DESC,0,0.15,8,0.15,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+2007,Armor,feather coat,깃털 코트,3,arm_feathercoat_3_DESC,0,0.2,5,0.2,0,2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3001,Accessory,woodsword,나무 목검,1,asc_woodsword_1_DESC,1,0.1,3,0,0,0.5,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3002,Accessory,vampirering,흡혈 반지,1,asc_vampirering_1_DESC,0,0,5,0,0,0,Vampire,적 5명 처치 시 체력 10을 회복 합니다.
+3003,Accessory,oldboots,낡은 장화,1,asc_oldboots_1_DESC,0,0,0,0,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3004,Accessory,oldshield,낡은 방패,1,asc_oldshield_1_DESC,0,-0.05,10,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3005,Accessory,pebblering,조약돌 반지,1,asc_pebblering_1_DESC,0,0,8,0,0,-0.5,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3006,Accessory,leatherbracelet,가죽 팔찌,1,asc_leatherbracelet_1_DESC,0,0.15,0,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3007,Accessory,glassring,유리 반지,1,asc_glassring_1_DESC,3,0,-5,-0.1,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3008,Accessory,stonering,돌 팔찌,2,asc_stonering_2_DESC,4,-0.1,5,0,0,-1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3009,Accessory,smalldagger,작은 단검,2,asc_smalldagger_2_DESC,2,0.15,0,0,0,0.5,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3010,Accessory,turtleshell,거북 등딱지,2,asc_turtleshell_2_DESC,0,-0.1,15,0,0,-2,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3011,Accessory,protectionnecklace,수호의 목걸이,2,asc_protectionnecklace_2_DESC,0,0,12,0,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3012,Accessory,lightfeather,가벼운 깃털,2,asc_lightfeather_2_DESC,1,0.2,0,0,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3013,Accessory,glassnecklace,유리 목걸이,2,asc_glassnecklace_2_DESC,5,0,-8,-0.1,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3014,Accessory,luckycoin,행운의 동전,1,asc_luckycoin_3_DESC,0,0,5,0,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3015,Accessory,silverring,금 반지,3,asc_silverring_3_DESC,1,0.25,5,0,0,1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3016,Accessory,glasscannon,유리 대포,4,asc_glasscannon_4_DESC,10,0.2,-15,-0.3,0,0,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
+3017,Accessory,diamondring,다이아 반지,4,asc_diamondring_4_DESC,8,0,10,0,0,-1,NOT EFF,해당 아이템의 능력은 아직 없습니다. 다음을 기대해 주세요
